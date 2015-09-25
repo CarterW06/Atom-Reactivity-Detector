@@ -105,13 +105,16 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 				for (Atom a : atoms) {
 					if (covalent == false) {
 						if (a.getValenceElectrons() == 3 || a.getValenceElectrons() == 4) {
-							JOptionPane.showMessageDialog(this, "ERROR:\nNOT ENOUGH TRANSFER ENERGY!");
 							System.exit(0);
 						}
-						JOptionPane.showMessageDialog(this, "ionic bond");
-						rf = new ResultFrame(atoms);
 					}
 				}
+				if(atoms[1].getValenceElectrons() < atoms[0].getValenceElectrons()) {
+					Atom smallAtom = atoms[1]; Atom bigAtom = atoms[0];
+					atoms[0] = smallAtom; atoms[1] = bigAtom;
+				}
+				JOptionPane.showMessageDialog(this, "ionic bond");
+				rf = new ResultFrame(atoms);
 			}
 
 		} catch (Exception a) {

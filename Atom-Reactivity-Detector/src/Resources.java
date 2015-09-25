@@ -3,12 +3,15 @@ import java.util.ArrayList;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
+@SuppressWarnings("unused")
 public class Resources {
 	public static HashMap<Integer, String[]> sPBlock = new HashMap<Integer, String[]>();
 	public static ArrayList<String> metals = new ArrayList<String>();
 	public static int[][] electronPos = new int[8][2];
-	//private final static Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-	public static HashMap<Integer, Dimension> covalentAtomPositions = new HashMap<Integer, Dimension>();
+	public static final int IONIC = 0;
+	public static final int COVALENT = 1;
+	public static final int METALLIC = 2;
+	public static final HashMap<Integer, Dimension> covalentAtomPositions = new HashMap<Integer, Dimension>();
 	private static String[] group1 = { "hydrogen", "lithium", "sodium",
 			"potassium", "rubidium", "cesium", "francium" };
 	private static String[] group2 = { "helium", "beryllium", "magnesium",
@@ -28,11 +31,11 @@ public class Resources {
 
 	public static void generateHashMap() {
 		electronPos[0][0] = 90;
-		electronPos[0][1] = -15;
-		electronPos[1][0] = 0;
-		electronPos[1][1] = 30;
-		electronPos[2][0] = 0;
-		//covalentAtomPositions.put(1, new Dimension(d.width / 2, ));
+		electronPos[0][1] = 15;
+		electronPos[1][0] = 90;
+		electronPos[1][1] = 0;
+		electronPos[2][0] = 70;
+		electronPos[2][1] = -15;
 		sPBlock.put(1, group1);
 		sPBlock.put(2, group2);
 		sPBlock.put(3, group13);

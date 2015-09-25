@@ -29,30 +29,34 @@ public class ResultFrame extends JFrame {
 		}
 	};
 	private Timer t = new Timer(100, al);
-	
+
 	protected ResultFrame() {
-		
+
 	}
-	
+
 	public ResultFrame(Atom[] atoms) {
 		super("Results");
 		this.atoms = convertAtomToResultAtom(atoms);
 		setSize(new Dimension(10, 10));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
+		System.out.println("Visible:  " + isVisible());
 		t.start();
 		xMax = Toolkit.getDefaultToolkit().getScreenSize().width;
 		yMax = Toolkit.getDefaultToolkit().getScreenSize().height - 100;
 		xSize = getWidth();
 		ySize = getHeight();
-		this.atoms[0].setX(xMax / 4);  this.atoms[0].setY(yMax / 2);
-		this.atoms[1].setX(xMax / 4 * 3);  this.atoms[1].setY(yMax / 2);
+		this.atoms[0].setX(xMax / 4);
+		this.atoms[0].setY(yMax / 2);
+		this.atoms[1].setX(xMax / 4 * 3);
+		this.atoms[1].setY(yMax / 2);
 	}
-	
+
 	private ResultAtom[] convertAtomToResultAtom(Atom[] a) {
 		ResultAtom[] resultAtom = new ResultAtom[a.length];
-		for(int i = 0; i < a.length; i++) {
-			resultAtom[i] = new ResultAtom(a[i].getName(), 0, 0);
+		for (int i = 0; i < a.length; i++) {
+			resultAtom[i] = new ResultAtom(a[i].getName(), 0, 0,
+					Resources.IONIC);
 		}
 		return resultAtom;
 	}
@@ -72,25 +76,34 @@ public class ResultFrame extends JFrame {
 			}
 		}
 		if (xSize >= xMax && ySize >= yMax) {
-			//???
-			if(frame < xMax / 10 + xMax / 16)
-			if(frame < xMax / 10 && atoms[0].getX() < xMax / 8 * 7) {
-				atoms[0].setX(atoms[0].getX() + 2);
-				atoms[1].setX(atoms[1].getX() - 2);
-			}
+			// ???
+			if (frame < xMax / 10 + xMax / 16)
+				if (frame < xMax / 10 && atoms[0].getX() < xMax / 8 * 7) {
+					atoms[0].setX(atoms[0].getX() + 2);
+					atoms[1].setX(atoms[1].getX() - 2);
+				}
 			g2D.clearRect(0, 0, xMax, yMax);
 			g2D.setColor(Color.RED);
-			System.out.println(g2D.getFont().getSize() + " " + g2D.getFont().getFontName() + " " + g2D.getFont().getName()); g2D.setFont(new Font("Courier New", Font.PLAIN, 15));
 			g2D.drawString(atoms[0].getName(), atoms[0].getX(), atoms[0].getY());
 			g2D.setColor(Color.GREEN);
 			g2D.drawString(atoms[1].getName(), atoms[1].getX(), atoms[1].getY());
 			g2D.setColor(Color.RED);
-			for(int i = 0; i < atoms[0].getValenceElectrons(); i++) {
+			for (int i = 0; i < atoms[0].getValenceElectrons(); i++) {
+				int[] positionDetailed = Resources.electronPos[i];
+				for (int i2 = 0; i < atoms[0].v.length; i++) {
+					if (atoms[0].v[i2]) {
+						g2D.fillOval(atoms[0].getX() + Resources.electronPos[i2][0], atoms[0].getY() + Resources.electronPos[i2][1], 5, 5);
+					}
+				}
+			}
+			g2D.setColor(Color.GREEN);
+			for (int i = 0; i < atoms[1].getValenceElectrons(); i++) {
 				int[] positionDetailed = Resources.electronPos[i];
 				System.out.println(Arrays.toString(positionDetailed));
-				g2D.drawOval(atoms[0].getX()+positionDetailed[0], atoms[0].getY()+positionDetailed[1], 5, 5);
+				g2D.drawOval(atoms[1].getX() + positionDetailed[1],
+						atoms[1].getY() + positionDetailed[1], 5, 5);
 			}
-			
+
 		}
 	}
 }

@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -8,7 +7,7 @@ import javax.swing.Timer;
 
 
 
-
+@SuppressWarnings("unused")
 public class CovalentResultFrame extends ResultFrame {
 	/**
 	 * 
