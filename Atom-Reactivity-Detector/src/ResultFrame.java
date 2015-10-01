@@ -89,7 +89,6 @@ public class ResultFrame extends JFrame {
 			g2D.drawString(atoms[1].getName(), atoms[1].getX(), atoms[1].getY());
 			g2D.setColor(Color.RED);
 			for (int i = 0; i < atoms[0].getValenceElectrons(); i++) {
-				int[] positionDetailed = Resources.electronPos[i];
 				for (int i2 = 0; i < atoms[0].v.length; i++) {
 					if (atoms[0].v[i2]) {
 						g2D.fillOval(atoms[0].getX() + Resources.electronPos[i2][0], atoms[0].getY() + Resources.electronPos[i2][1], 5, 5);
@@ -98,10 +97,11 @@ public class ResultFrame extends JFrame {
 			}
 			g2D.setColor(Color.GREEN);
 			for (int i = 0; i < atoms[1].getValenceElectrons(); i++) {
-				int[] positionDetailed = Resources.electronPos[i];
-				System.out.println(Arrays.toString(positionDetailed));
-				g2D.drawOval(atoms[1].getX() + positionDetailed[1],
-						atoms[1].getY() + positionDetailed[1], 5, 5);
+				for (int i2 = 0; i < atoms[1].v.length; i++) {
+					if (atoms[1].v[i2]) {
+						g2D.fillOval(atoms[1].getX() + Resources.electronPos[i2][0], atoms[0].getY() + Resources.electronPos[i2][1], 5, 5);
+					}
+				}
 			}
 
 		}
