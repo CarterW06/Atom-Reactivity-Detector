@@ -36,7 +36,7 @@ public class ResultFrame extends JFrame {
 
 	public ResultFrame(Atom[] atoms) {
 		super("Results");
-		this.atoms = convertAtomToResultAtom(atoms);
+		this.atoms = convertAtomsToResultAtom(atoms, Resources.IONIC);
 		setSize(new Dimension(10, 10));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -52,14 +52,17 @@ public class ResultFrame extends JFrame {
 		this.atoms[1].setY(yMax / 2);
 	}
 
-	private ResultAtom[] convertAtomToResultAtom(Atom[] a) {
+	protected ResultAtom[] convertAtomsToResultAtom(Atom[] a, int bondType) {
 		ResultAtom[] resultAtom = new ResultAtom[a.length];
 		for (int i = 0; i < a.length; i++) {
-			resultAtom[i] = new ResultAtom(a[i].getName(), 0, 0,
-					Resources.IONIC);
+			//resultAtom[i] = new ResultAtom(a[i].getName(), 0, 0, bondType);
 		}
 		return resultAtom;
 	}
+	
+	//protected ResultAtom convertAtomToResultAtom(Atom a, int bondType) {
+		//return new ResultAtom(a.getName(), 0, 0, bondType, );
+	//}
 
 	@Override
 	public void paint(Graphics g) {
@@ -91,7 +94,9 @@ public class ResultFrame extends JFrame {
 			for (int i = 0; i < atoms[0].getValenceElectrons(); i++) {
 				for (int i2 = 0; i < atoms[0].v.length; i++) {
 					if (atoms[0].v[i2]) {
-						g2D.fillOval(atoms[0].getX() + Resources.electronPos[i2][0], atoms[0].getY() + Resources.electronPos[i2][1], 5, 5);
+						g2D.fillOval(atoms[0].getX()
+								+ Resources.electronPos[i2][0], atoms[0].getY()
+								+ Resources.electronPos[i2][1], 5, 5);
 					}
 				}
 			}
@@ -99,7 +104,9 @@ public class ResultFrame extends JFrame {
 			for (int i = 0; i < atoms[1].getValenceElectrons(); i++) {
 				for (int i2 = 0; i < atoms[1].v.length; i++) {
 					if (atoms[1].v[i2]) {
-						g2D.fillOval(atoms[1].getX() + Resources.electronPos[i2][0], atoms[0].getY() + Resources.electronPos[i2][1], 5, 5);
+						g2D.fillOval(atoms[1].getX()
+								+ Resources.electronPos[i2][0], atoms[0].getY()
+								+ Resources.electronPos[i2][1], 5, 5);
 					}
 				}
 			}

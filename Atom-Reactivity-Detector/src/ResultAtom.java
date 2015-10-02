@@ -6,7 +6,7 @@ public class ResultAtom extends Atom {
 	public ArrayList<Integer> electronY = new ArrayList<Integer>();
 	protected boolean[] v = new boolean[8];
 
-	public ResultAtom(String atomName, int x, int y, int whatBond) {
+	public ResultAtom(String atomName, int x, int y, int whatBond, int quadrant) {
 		super(atomName);
 		switch(whatBond) {
 		case Resources.IONIC:
@@ -31,6 +31,11 @@ public class ResultAtom extends Atom {
 				v[4] = true;
 				v[6] = true;
 				v[7] = true;
+			}
+		case Resources.COVALENT:
+			switch(valenceElectrons) {
+			case 1:
+				
 			}
 		}
 		this.x = x;

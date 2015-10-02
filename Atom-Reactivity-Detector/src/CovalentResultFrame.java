@@ -28,8 +28,9 @@ public class CovalentResultFrame extends ResultFrame {
 	public CovalentResultFrame(Atom centerAtom, Atom[] otherAtoms) {
 		super();
 		t.start();
-		this.centerAtom = centerAtom;
-		this.otherAtoms = otherAtoms;
+		System.out.println(frame);
+		//this.centerAtom = convertAtomToResultAtom(centerAtom, Resources.COVALENT);
+		this.otherAtoms = convertAtomsToResultAtom(otherAtoms, Resources.COVALENT);
 		setVisible(true);
 		super.atoms[0].setX(xMax / 4);  super.atoms[0].setY(yMax / 2);
 		super.atoms[1].setX(xMax / 4 * 3);  super.atoms[1].setY(yMax / 2);
@@ -52,10 +53,13 @@ public class CovalentResultFrame extends ResultFrame {
 				setSize(xSize, ySize);
 			}
 		}
-		else if (xSize >= xMax && ySize >= yMax) {
+		if (xSize >= xMax && ySize >= yMax) {
+			System.out.println("Yippee!!!!");
+			g.drawString(centerAtom.getName(), xMax / 2, yMax / 2);
 			for(Atom a : otherAtoms) {
 				
 			}
 		}
+		System.out.println(ySize + " " + yMax);
 	}
 }
