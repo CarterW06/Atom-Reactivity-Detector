@@ -15,6 +15,7 @@ public class Resources {
 	public static final int QUADRANT1 = 1;
 	public static final int QUADRANT2 = 2;
 	public static final int QUADRANT3 = 3;
+	public static final int QUADRANT4 = 4;
 	public static final HashMap<Integer, Dimension> covalentAtomPositions = new HashMap<Integer, Dimension>();
 	private static String[] group1 = { "hydrogen", "lithium", "sodium",
 			"potassium", "rubidium", "cesium", "francium" };
