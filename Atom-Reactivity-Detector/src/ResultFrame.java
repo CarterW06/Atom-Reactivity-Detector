@@ -36,6 +36,7 @@ public class ResultFrame extends JFrame {
 
 	public ResultFrame(Atom[] atoms) {
 		super("Results");
+		System.out.println("hi");
 		int[] positions = {3, 2};
 		this.atoms = convertAtomsToResultAtom(atoms, Resources.IONIC, positions);
 		setSize(new Dimension(10, 10));
@@ -69,6 +70,8 @@ public class ResultFrame extends JFrame {
 			int quadrant) {
 		return new ResultAtom(a.getName(), 0, 0, bondType, quadrant);
 	}
+	
+	private int[][] currentPosition = new int[atoms[0].getValenceElectrons()][2];
 
 	@Override
 	public void paint(Graphics g) {
@@ -97,12 +100,14 @@ public class ResultFrame extends JFrame {
 			g2D.setColor(Color.BLUE);
 			g2D.drawString(atoms[1].getName(), atoms[1].getX(), atoms[1].getY());
 			g2D.setColor(Color.RED);
+			int oneToUse = 0;
 			for (int i = 0; i < atoms[0].getValenceElectrons(); i++) {
 				for (int i2 = 0; i2 < atoms[0].v.length; i2++) {
 					if (atoms[0].v[i2]) {
-						g2D.fillOval(atoms[0].getX()
+						g2D.fillOval(currentPosition[oneToUse][0]
 								+ Resources.electronPos[i][0], atoms[0].getY()
 								+ Resources.electronPos[i][1], 5, 5);
+						currentPosition[oneToUse][0]+= 2;
 					}
 				}
 			}

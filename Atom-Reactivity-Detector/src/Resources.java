@@ -43,6 +43,8 @@ public class Resources {
 		electronPos[2][1] = -15;
 		electronPos[3][0] = 30;
 		electronPos[3][1] = -15;
+		electronPos[4][0] = 5;
+		electronPos[4][1] = -5;
 		sPBlock.put(1, group1);
 		sPBlock.put(2, group2);
 		sPBlock.put(3, group13);

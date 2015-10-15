@@ -14,7 +14,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		super("Atom Reactivity Detector");
 		JPanel panel = new JPanel();
 		JLabel info = new JLabel(
-				"Welcome to Atom Reactivity Detector!  Enter the number of atoms that you want to be computed and then press the button. Unit cell output will be shown on a print report and inputing the number of atoms in the unit cell is not required.");
+				"Welcome to Atom Reactivity Detector!  Enter the number of atoms that you want to be computed and then press the button.");
 		panel.add(info);
 		panel.add(input);
 		panel.add(next);
