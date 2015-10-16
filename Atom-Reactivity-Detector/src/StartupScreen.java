@@ -1,4 +1,5 @@
 
+import java.awt.Component;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
@@ -8,10 +9,10 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 	private JTextField input = new JTextField(20);
 	private JButton next = new JButton("Next \u2192");
 	public ResultFrame rf;
+	public JFrame jf = new JFrame("Atom Reactivity Detector");
 
 	private StartupScreen() {
 		// TEMP
-		super("Atom Reactivity Detector");
 		JPanel panel = new JPanel();
 		JLabel info = new JLabel(
 				"Welcome to Atom Reactivity Detector!  Enter the number of atoms that you want to be computed and then press the button.");
@@ -19,7 +20,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		panel.add(input);
 		panel.add(next);
 		add(panel);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		next.addActionListener(this);
 		input.addKeyListener(this);
@@ -104,7 +105,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 			if (sum == 8 && atoms.length == 2) {
 				for (Atom a : atoms) {
 					if (covalent == false) {
-						if (a.getValenceElectrons() == 3 || a.getValenceElectrons() == 4) {
+						if (a.getValenceElectrons() == 3 || a.getValenceElectrons() == 4 || a.getValenceElectrons() == 5) {
 							System.exit(0);
 						}
 					}
@@ -113,8 +114,11 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 					Atom smallAtom = atoms[1]; Atom bigAtom = atoms[0];
 					atoms[0] = smallAtom; atoms[1] = bigAtom;
 				}
-				JOptionPane.showMessageDialog(this, "ionic bond");
-				rf = new ResultFrame(atoms);
+				//JOptionPane.showMessageDialog(this, "ionic bond");
+				System.out.println("ionic bond");
+				rf = new ResultFrame();
+				rf.setVisible(true);
+				System.out.println("123");
 			}
 
 		} catch (Exception a) {

@@ -6,8 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.*;
-import java.util.Arrays;
-import java.awt.Font;
+import java.awt.geom.Ellipse2D;
 
 public class ResultFrame extends JFrame {
 	/**
@@ -29,19 +28,18 @@ public class ResultFrame extends JFrame {
 		}
 	};
 	private Timer t = new Timer(100, al);
-
-	protected ResultFrame() {
-
+	
+	public ResultFrame() {
+		System.out.println("blah blah blah");
 	}
 
 	public ResultFrame(Atom[] atoms) {
 		super("Results");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 		System.out.println("hi");
 		int[] positions = {3, 2};
 		this.atoms = convertAtomsToResultAtom(atoms, Resources.IONIC, positions);
-		setSize(new Dimension(10, 10));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
 		System.out.println("Visible:  " + isVisible());
 		t.start();
 		xMax = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -75,6 +73,7 @@ public class ResultFrame extends JFrame {
 
 	@Override
 	public void paint(Graphics g) {
+		super.paint(g);
 		Graphics2D g2D = (Graphics2D) g;
 		if (frame > 15) {
 			xSize += 10;
