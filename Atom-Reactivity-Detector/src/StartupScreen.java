@@ -116,7 +116,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 				}
 				//JOptionPane.showMessageDialog(this, "ionic bond");
 				System.out.println("ionic bond");
-				rf = new ResultFrame();
+				rf = new ResultFrame(atoms);
 				rf.setVisible(true);
 				System.out.println("123");
 			}

@@ -1,57 +1,32 @@
 import javax.swing.*;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
 
 public class ResultFrame extends JFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3112259498249138475L;
-	protected int frame = 0;
-	protected ResultAtom[] atoms;
-	// add atom dimensions
-	protected int xMax;
-	protected int yMax;
-	protected int xSize;
-	protected int ySize;
-
+	private ResultAtom[] atoms;
+	private int xMax = Toolkit.getDefaultToolkit().getScreenSize().width;
+	private int yMax = Toolkit.getDefaultToolkit().getScreenSize().height - 10;
+	private int xSize;
+	private int ySize;
+	private int frame = 0;
 	private ActionListener al = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
 			frame++;
-			repaint();
 		}
 	};
 	private Timer t = new Timer(100, al);
-	
-	public ResultFrame() {
-		System.out.println("blah blah blah");
-	}
-
-	public ResultFrame(Atom[] atoms) {
-		super("Results");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	protected ResultFrame(Atom[] atoms) {
+		super();
 		setVisible(true);
-		System.out.println("hi");
-		int[] positions = {3, 2};
-		this.atoms = convertAtomsToResultAtom(atoms, Resources.IONIC, positions);
-		System.out.println("Visible:  " + isVisible());
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(new Dimension(10, 10));
+		this.atoms[0] = convertAtomToResultAtom(atoms[0], Resources.IONIC, 0);  this.atoms[1] = convertAtomToResultAtom(atoms[1], Resources.IONIC, 0);
+		xSize = getWidth();  ySize = getHeight();
 		t.start();
-		xMax = Toolkit.getDefaultToolkit().getScreenSize().width;
-		yMax = Toolkit.getDefaultToolkit().getScreenSize().height - 100;
-		xSize = getWidth();
-		ySize = getHeight();
-		this.atoms[0].setX(xMax / 4);
-		this.atoms[0].setY(yMax / 2);
-		this.atoms[1].setX(xMax / 4 * 3);
-		this.atoms[1].setY(yMax / 2);
 	}
-
+	
 	protected ResultAtom[] convertAtomsToResultAtom(Atom[] a, int bondType,
 			int[] quadrant) {
 		ResultAtom[] resultAtom = new ResultAtom[a.length];
@@ -123,4 +98,5 @@ public class ResultFrame extends JFrame {
 
 		}
 	}
+
 }
