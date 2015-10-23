@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ResultFrame extends JFrame {
-	private ResultAtom[] atoms;
+	private ResultAtom[] atoms = new ResultAtom[2];
 	private int xMax = Toolkit.getDefaultToolkit().getScreenSize().width;
 	private int yMax = Toolkit.getDefaultToolkit().getScreenSize().height - 10;
 	private int xSize;
@@ -14,23 +14,37 @@ public class ResultFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			frame++;
+			System.out.println(frame);
+			repaint();
 		}
 	};
 	private Timer t = new Timer(100, al);
+	private int[] currentPosition = new int[2];
 	protected ResultFrame(Atom[] atoms) {
-		super();
+		super("Results");
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(10, 10));
-		this.atoms[0] = convertAtomToResultAtom(atoms[0], Resources.IONIC, 0);  this.atoms[1] = convertAtomToResultAtom(atoms[1], Resources.IONIC, 0);
+		System.out.println(convertAtomToResultAtom(atoms[0], Resources.IONIC, 0).getName());
+		this.atoms[0] = convertAtomToResultAtom(atoms[0], Resources.IONIC, 0);
+		this.atoms[1] = convertAtomToResultAtom(atoms[1], Resources.IONIC, 0);
 		xSize = getWidth();  ySize = getHeight();
+		currentPosition = new int[atoms[0].getValenceElectrons()];
+		this.atoms[0].setX(xMax / 4);
+		this.atoms[0].setY(yMax / 2);
+		this.atoms[1].setX(xMax / 4 * 3);
+		this.atoms[1].setY(yMax / 2);
+		for(int i = 0; i < 2; i++) {
+			currentPosition[i] = xMax / 4 + Resources.electronPos[]
+		}
 		t.start();
 	}
 	
 	protected ResultAtom[] convertAtomsToResultAtom(Atom[] a, int bondType,
 			int[] quadrant) {
 		ResultAtom[] resultAtom = new ResultAtom[a.length];
-		for (int i = 0; i < a.length; i++) {
+		for (int i = 0; i < a
+				.length; i++) {
 			for (int f : quadrant) {
 				resultAtom[i] = new ResultAtom(a[i].getName(), 0, 0, bondType,
 						i);
@@ -44,11 +58,9 @@ public class ResultFrame extends JFrame {
 		return new ResultAtom(a.getName(), 0, 0, bondType, quadrant);
 	}
 	
-	private int[][] currentPosition = new int[atoms[0].getValenceElectrons()][2];
 
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
 		Graphics2D g2D = (Graphics2D) g;
 		if (frame > 15) {
 			xSize += 10;
@@ -70,6 +82,7 @@ public class ResultFrame extends JFrame {
 				}
 			g2D.clearRect(0, 0, xMax, yMax);
 			g2D.setColor(Color.RED);
+			System.out.println();
 			g2D.drawString(atoms[0].getName(), atoms[0].getX(), atoms[0].getY());
 			g2D.setColor(Color.BLUE);
 			g2D.drawString(atoms[1].getName(), atoms[1].getX(), atoms[1].getY());
@@ -81,7 +94,7 @@ public class ResultFrame extends JFrame {
 						g2D.fillOval(currentPosition[oneToUse][0]
 								+ Resources.electronPos[i][0], atoms[0].getY()
 								+ Resources.electronPos[i][1], 5, 5);
-						currentPosition[oneToUse][0]+= 2;
+						currentPosition[oneToUse][0]+= 1;
 					}
 				}
 			}
