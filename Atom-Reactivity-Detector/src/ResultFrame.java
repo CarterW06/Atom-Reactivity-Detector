@@ -3,12 +3,17 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class ResultFrame extends JFrame {
-	private ResultAtom[] atoms = new ResultAtom[2];
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected ResultAtom[] atoms = new ResultAtom[2];
 	private int xMax = Toolkit.getDefaultToolkit().getScreenSize().width;
 	private int yMax = Toolkit.getDefaultToolkit().getScreenSize().height - 10;
 	private int xSize;
 	private int ySize;
 	private int frame = 0;
+	private boolean go = true;
 	private ActionListener al = new ActionListener() {
 		
 		@Override
@@ -22,6 +27,7 @@ public class ResultFrame extends JFrame {
 	private int[] currentPosition = new int[2];
 	protected ResultFrame(Atom[] atoms) {
 		super("Results");
+		System.out.println("made it");
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(new Dimension(10, 10));
@@ -30,13 +36,14 @@ public class ResultFrame extends JFrame {
 		this.atoms[1] = convertAtomToResultAtom(atoms[1], Resources.IONIC, 0);
 		xSize = getWidth();  ySize = getHeight();
 		currentPosition = new int[atoms[0].getValenceElectrons()];
+		for(int i = 0; i < currentPosition.length; i++) {
+			currentPosition[i] = xMax / 4 + Resources.electronPos[i][0];
+		}
 		this.atoms[0].setX(xMax / 4);
 		this.atoms[0].setY(yMax / 2);
 		this.atoms[1].setX(xMax / 4 * 3);
 		this.atoms[1].setY(yMax / 2);
-		for(int i = 0; i < 2; i++) {
-			currentPosition[i] = xMax / 4 + Resources.electronPos[]
-		}
+		
 		t.start();
 	}
 	
@@ -87,14 +94,13 @@ public class ResultFrame extends JFrame {
 			g2D.setColor(Color.BLUE);
 			g2D.drawString(atoms[1].getName(), atoms[1].getX(), atoms[1].getY());
 			g2D.setColor(Color.RED);
-			int oneToUse = 0;
 			for (int i = 0; i < atoms[0].getValenceElectrons(); i++) {
 				for (int i2 = 0; i2 < atoms[0].v.length; i2++) {
 					if (atoms[0].v[i2]) {
-						g2D.fillOval(currentPosition[oneToUse][0]
+						currentPosition[0]+= 2;
+						g2D.fillOval(currentPosition[0]
 								+ Resources.electronPos[i][0], atoms[0].getY()
 								+ Resources.electronPos[i][1], 5, 5);
-						currentPosition[oneToUse][0]+= 1;
 					}
 				}
 			}

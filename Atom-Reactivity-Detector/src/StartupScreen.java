@@ -41,7 +41,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		computeInput();
 	}
 
-	public int computeInput()
+	private int computeInput()
 	{
 		next.removeKeyListener(this);
 		if (input.getText().equals("exit"))
@@ -129,7 +129,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		// Not included yet - reference Atom.java to see how it works
 	}
 
-	private int isIonicBond(Atom[] atoms, boolean covalent, int sum)
+	public int isIonicBond(Atom[] atoms, boolean covalent, int sum)
 	{
 		if (sum == 8 && atoms.length == 2)
 		{
