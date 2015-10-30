@@ -1,7 +1,7 @@
 
-import java.awt.Component;
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 
 public class StartupScreen extends JFrame implements ActionListener, KeyListener
@@ -21,6 +21,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		panel.add(input);
 		panel.add(next);
 		add(panel);
+		setBackground(Color.BLACK);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		next.addActionListener(this);

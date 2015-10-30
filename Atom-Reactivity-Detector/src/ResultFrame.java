@@ -66,6 +66,7 @@ public class ResultFrame extends JFrame {
 
 	@Override
 	public void paint(Graphics g) {
+		setBackground(Color.BLACK);
 		Graphics2D g2D = (Graphics2D) g;
 		if (frame > 15) {
 			xSize += 10;
@@ -81,12 +82,12 @@ public class ResultFrame extends JFrame {
 		if (xSize >= xMax && ySize >= yMax) {
 			// ???
 			if (frame < xMax / 10 + xMax / 16)
-				if (frame < xMax / 10 && atoms[0].getX() < xMax / 8 * 7) {
-					atoms[0].setX(atoms[0].getX() + 2);
-					atoms[1].setX(atoms[1].getX() - 2);
+				if (frame < xMax / 10 && atoms[0].getX() < xMax / 10 * 4) {
+					atoms[0].setX(atoms[0].getX() + 4);
+					atoms[1].setX(atoms[1].getX() - 4);
 				}
 			if (go) {
-				currentPosition[0] += 2;
+				currentPosition[0] += 3;
 			}
 			System.out.println(currentPosition[0] + " dfdfdfdfd " + (atoms[1].getX() + Resources.electronPos[4][0]));
 			if (currentPosition[0] > atoms[1].getX() - 125) {
@@ -98,12 +99,6 @@ public class ResultFrame extends JFrame {
 			System.out.println();
 			g2D.drawString(atoms[0].getName(), atoms[0].getX(), atoms[0].getY());
 			g2D.setColor(Color.BLUE);
-			
-			
-			
-			
-			
-			
 			g2D.drawString(atoms[1].getName(), atoms[1].getX(), atoms[1].getY());
 			g2D.setColor(Color.RED);
 			for (int i = 0; i < atoms[0].getValenceElectrons(); i++) {
