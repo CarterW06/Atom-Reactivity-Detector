@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ResultFrame extends JFrame {
+public class IonicResultFrame extends JFrame {
 	/**
 	 * 
 	 */
@@ -26,7 +26,7 @@ public class ResultFrame extends JFrame {
 	private Timer t = new Timer(100, al);
 	private int[] currentPosition = new int[2];
 
-	protected ResultFrame(Atom[] atoms) {
+	protected IonicResultFrame(Atom[] atoms) {
 		super("Results");
 		System.out.println("made it");
 		setVisible(true);
@@ -53,7 +53,7 @@ public class ResultFrame extends JFrame {
 	protected ResultAtom[] convertAtomsToResultAtom(Atom[] a, int bondType, int[] quadrant) {
 		ResultAtom[] resultAtom = new ResultAtom[a.length];
 		for (int i = 0; i < a.length; i++) {
-			for (int f : quadrant) {
+			for (int x = 0; x < quadrant.length; x++) {
 				resultAtom[i] = new ResultAtom(a[i].getName(), 0, 0, bondType, i);
 			}
 		}

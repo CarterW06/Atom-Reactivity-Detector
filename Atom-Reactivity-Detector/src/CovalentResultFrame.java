@@ -8,7 +8,7 @@ import javax.swing.Timer;
 
 
 @SuppressWarnings("unused")
-public class CovalentResultFrame extends ResultFrame {
+public class CovalentResultFrame extends IonicResultFrame {
 	/**
 	 * 
 	 */
@@ -26,11 +26,15 @@ public class CovalentResultFrame extends ResultFrame {
 	});
 
 	public CovalentResultFrame(Atom centerAtom, Atom[] otherAtoms) {
-		super();
+		super(new Atom[100]);
 		t.start();
 		System.out.println(frame);
 		//this.centerAtom = convertAtomToResultAtom(centerAtom, Resources.COVALENT);
-		this.otherAtoms = convertAtomsToResultAtom(otherAtoms, Resources.COVALENT);
+		int[] partsOfScreen = new int[otherAtoms.length + 1];
+		for(int i = 0; i < otherAtoms.length + 1; i++) {
+			partsOfScreen[i] = i;
+		}
+		this.otherAtoms = convertAtomsToResultAtom(otherAtoms, Resources.COVALENT, partsOfScreen);
 		setVisible(true);
 		super.atoms[0].setX(xMax / 4);  super.atoms[0].setY(yMax / 2);
 		super.atoms[1].setX(xMax / 4 * 3);  super.atoms[1].setY(yMax / 2);

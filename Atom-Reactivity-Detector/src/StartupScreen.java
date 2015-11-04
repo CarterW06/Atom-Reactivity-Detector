@@ -9,8 +9,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 	private static final long serialVersionUID = -104229691199606680L;
 	private JTextField input = new JTextField(20);
 	private JButton next = new JButton("Next \u2192");
-	public ResultFrame rf;
-	public JFrame jf = new JFrame("Atom Reactivity Detector");
+	public IonicResultFrame irf;
 
 	public StartupScreen()
 	{
@@ -121,7 +120,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 			if (covalent)
 			{
 				JOptionPane.showMessageDialog(this, "covalent");
-				rf = new CovalentResultFrame(cb.getCenterAtom(), atomsNotInCenter);
+				irf = new CovalentResultFrame(cb.getCenterAtom(), atomsNotInCenter);
 			}
 		}
 		return isIonicBond(atoms, covalent, sum);
@@ -153,8 +152,8 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 			}
 			// JOptionPane.showMessageDialog(this, "ionic bond");
 			System.out.println("ionic bond");
-			rf = new ResultFrame(atoms);
-			rf.setVisible(true);
+			irf = new IonicResultFrame(atoms);
+			irf.setVisible(true);
 			return 538;
 		}
 		else if(sum == 8 && atoms.length == 3) {
