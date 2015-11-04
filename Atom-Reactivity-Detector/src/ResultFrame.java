@@ -100,7 +100,7 @@ public class ResultFrame extends JFrame {
 			g2D.drawString(atoms[0].getName(), atoms[0].getX(), atoms[0].getY());
 			g2D.setColor(Color.BLUE);
 			g2D.drawString(atoms[1].getName(), atoms[1].getX(), atoms[1].getY());
-			g2D.setColor(Color.RED);
+			g2D.setColor(Color.YELLOW);
 			for (int i = 0; i < atoms[0].getValenceElectrons(); i++) {
 				for (int i2 = 0; i2 < atoms[0].v.length; i2++) {
 					if (atoms[0].v[i2]) {
@@ -109,7 +109,7 @@ public class ResultFrame extends JFrame {
 					}
 				}
 			}
-			g2D.setColor(Color.BLUE);
+			g2D.setColor(Color.GREEN);
 			for (int i = 0; i < atoms[1].getValenceElectrons(); i++) {
 				for (int i2 = 0; i2 < atoms[1].v.length; i2++) {
 					if (atoms[1].v[i2]) {

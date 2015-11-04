@@ -130,7 +130,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		// Not included yet - reference Atom.java to see how it works
 	}
 
-	public int isIonicBond(Atom[] atoms, boolean covalent, int sum)
+	private int isIonicBond(Atom[] atoms, boolean covalent, int sum)
 	{
 		if (sum == 8 && atoms.length == 2)
 		{
@@ -156,6 +156,11 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 			rf = new ResultFrame(atoms);
 			rf.setVisible(true);
 			return 538;
+		}
+		else if(sum == 8 && atoms.length == 3) {
+			if(atoms[0].getValenceElectrons() >= 6 || atoms[1].getValenceElectrons() >= 6) {
+				
+			}
 		}
 		next.addKeyListener(this);
 		return 3;
