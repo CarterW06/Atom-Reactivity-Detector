@@ -7,7 +7,7 @@ public class IonicWithThree extends IonicResultFrame {
 	 */
 	private static final long serialVersionUID = 988536625939754581L;
 	private int[] rightCurrentPosition = new int[2];
-	private ResultAtom[] others;
+	private ResultAtom[] others = new ResultAtom[2];
 	private ResultAtom middleOne;
 	protected IonicWithThree(Atom middleOne, Atom[] others) {
 		super(others);
@@ -34,11 +34,12 @@ public class IonicWithThree extends IonicResultFrame {
 		}
 		if (xSize >= xMax && ySize >= yMax) {
 			// ???
-			if (frame < xMax / 10 + xMax / 16)
+			if (frame < xMax / 10 + xMax / 16) {
 				if (frame < xMax / 10 && others[0].getX() < xMax / 10 * 4) {
 					others[0].setX(others[0].getX() + 4);
 					others[1].setX(others[1].getX() - 4);
 				}
+			}
 			if (go) {
 				leftCurrentPosition[0] += 3;
 				rightCurrentPosition[0] -= 3;
