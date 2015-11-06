@@ -13,7 +13,7 @@ public class CovalentResultFrame extends IonicResultFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = -5099422727898981471L;
-	int frame = 0;
+	protected int frame = 0;
 	private Atom centerAtom;
 	private Atom[] otherAtoms;
 	Timer t = new Timer(100, new ActionListener() {

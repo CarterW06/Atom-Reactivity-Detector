@@ -11,6 +11,7 @@ public class Resources {
 	public static final int IONIC = 0;
 	public static final int COVALENT = 1;
 	public static final int METALLIC = 2;
+	public static final int IONIC3 = 3;
 	public static final int QUADRANT0 = 0;
 	public static final int QUADRANT1 = 1;
 	public static final int QUADRANT2 = 2;

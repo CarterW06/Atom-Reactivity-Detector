@@ -4,18 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class StartupScreen extends JFrame implements ActionListener, KeyListener
-{
+public class StartupScreen extends JFrame implements ActionListener, KeyListener {
 	private static final long serialVersionUID = -104229691199606680L;
 	private JTextField input = new JTextField(20);
 	private JButton next = new JButton("Next \u2192");
 	public IonicResultFrame irf;
 
-	public StartupScreen()
-	{
+	protected StartupScreen() {
 		// TEMP
 		JPanel panel = new JPanel();
-		JLabel info = new JLabel("Welcome to Atom Reactivity Detector!  Enter the number of atoms that you want to be computed and then press the button.");
+		JLabel info = new JLabel(
+				"Welcome to Atom Reactivity Detector!  Enter the number of atoms that you want to be computed and then press the button.");
 		panel.add(info);
 		panel.add(input);
 		panel.add(next);
@@ -28,49 +27,39 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		setVisible(true);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new StartupScreen();
 		Resources.generateHashMap();
 
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
+	public void actionPerformed(ActionEvent e) {
 		computeInput();
 	}
 
-	private int computeInput()
-	{
+	private int computeInput() {
 		next.removeKeyListener(this);
-		if (input.getText().equals("exit"))
-		{
+		if (input.getText().equals("exit")) {
 			System.exit(0);
 		}
 		System.out.println("i'm here" + input.getText());
-		if (Integer.parseInt(input.getText()) > 5)
-		{
+		if (Integer.parseInt(input.getText()) > 5) {
 			JOptionPane.showMessageDialog(this,
 					"If you want to use more than 5 atoms, you will not be trying to compute one atom.  It will automatically generate unit cells for you if you want it to.  Metallic bonds will also automatically be computed.");
 			System.exit(0);
 		}
 		String[] elements = new String[Integer.parseInt(input.getText())];
 		input.setText("");
-		for (int i = 0; i < elements.length; i++)
-		{
+		for (int i = 0; i < elements.length; i++) {
 			elements[i] = JOptionPane.showInputDialog(this, "What is the full name for element #" + (i + 1));
 		}
 		Set<Map.Entry<Integer, String[]>> set = Resources.sPBlock.entrySet();
 		int[] valenceElectrons = new int[elements.length];
-		for (int i = 0; i < elements.length; i++)
-		{
-			for (Map.Entry<Integer, String[]> entry : set)
-			{
-				for (String current : entry.getValue())
-				{
-					if (current.equalsIgnoreCase(elements[i]))
-					{
+		for (int i = 0; i < elements.length; i++) {
+			for (Map.Entry<Integer, String[]> entry : set) {
+				for (String current : entry.getValue()) {
+					if (current.equalsIgnoreCase(elements[i])) {
 						valenceElectrons[i] = entry.getKey();
 						break;
 					}
@@ -79,46 +68,42 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		}
 		Atom[] atoms = new Atom[elements.length];
 		boolean covalent = false;
-		for (int i = 0; i < atoms.length; i++)
-		{
+		for (int i = 0; i < atoms.length; i++) {
 			atoms[i] = new Atom(elements[i]);
 		}
 		CovalentBond cb = new CovalentBond(atoms);
 		int sum = 0;
-		for (int num = 0; num < atoms.length; num++)
-		{
+		for (int num = 0; num < atoms.length; num++) {
 			sum += atoms[num].getValenceElectrons();
 		}
 		boolean setTrue = true;
 		// If there is a center atom:
-		if (cb.getCenterAtom() != null)
-		{
+		if (cb.getCenterAtom() != null) {
 			Atom[] atomsNotInCenter = new Atom[atoms.length - 1];
 			int i = 0;
-			for (Atom a : atoms)
-			{
-				if (a != cb.getCenterAtom())
-				{
+			for (Atom a : atoms) {
+				if (a != cb.getCenterAtom()) {
 					atomsNotInCenter[i] = a;
 					i++;
 				}
 			}
-			for (Atom a : atomsNotInCenter)
-			{
-				if (a.getUnpairedElectrons() == 1)
-				{
-					if (setTrue)
-					{
+			for (Atom a : atomsNotInCenter) {
+				if (a.getUnpairedElectrons() == 1) {
+					if (setTrue) {
 						covalent = true;
 					}
-				} else
-				{
+				} else {
 					covalent = false;
 					setTrue = false;
 				}
 			}
-			if (covalent)
-			{
+			boolean hasH = false;
+			for (Atom a : atoms) {
+				if (a.getName().equalsIgnoreCase("hydrogen")) {
+					hasH = true;
+				}
+			}
+			if (covalent && hasH) {
 				JOptionPane.showMessageDialog(this, "covalent");
 				irf = new CovalentResultFrame(cb.getCenterAtom(), atomsNotInCenter);
 			}
@@ -129,22 +114,16 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		// Not included yet - reference Atom.java to see how it works
 	}
 
-	private int isIonicBond(Atom[] atoms, boolean covalent, int sum)
-	{
-		if (sum == 8 && atoms.length == 2)
-		{
-			for (Atom a : atoms)
-			{
-				if (covalent == false)
-				{
-					if (a.getValenceElectrons() == 3 || a.getValenceElectrons() == 4 || a.getValenceElectrons() == 5)
-					{
+	private int isIonicBond(Atom[] atoms, boolean covalent, int sum) {
+		if (sum == 8 && atoms.length == 2) {
+			for (Atom a : atoms) {
+				if (covalent == false) {
+					if (a.getValenceElectrons() == 3 || a.getValenceElectrons() == 4 || a.getValenceElectrons() == 5) {
 						System.exit(0);
 					}
 				}
 			}
-			if (atoms[1].getValenceElectrons() < atoms[0].getValenceElectrons())
-			{
+			if (atoms[1].getValenceElectrons() < atoms[0].getValenceElectrons()) {
 				Atom smallAtom = atoms[1];
 				Atom bigAtom = atoms[0];
 				atoms[0] = smallAtom;
@@ -155,32 +134,43 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 			irf = new IonicResultFrame(atoms);
 			irf.setVisible(true);
 			return 538;
-		}
-		else if(sum == 8 && atoms.length == 3) {
-			if(atoms[0].getValenceElectrons() >= 6 || atoms[1].getValenceElectrons() >= 6) {
-				
+		} else if (sum == 8 && atoms.length == 3) {
+			System.out.println("ionic bond");
+			java.util.List<Atom> al = new ArrayList<Atom>();
+			Atom[] otherAtoms = new Atom[2];
+			Atom bigOne = new Atom("ERROR");
+			for(Atom a : atoms) {
+				if(a.getValenceElectrons() == 1) {
+					al.add(a);
+				} else if(a.getValenceElectrons() == 6) {
+					bigOne = a;
+				}
 			}
+			int i = 0;
+			while(i < 2) {
+			for(Atom a : al) {
+				otherAtoms[i] = a;
+				i++;
+			}
+			}
+			irf = new IonicWithThree(bigOne, otherAtoms);
 		}
 		next.addKeyListener(this);
 		return 3;
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		if (e.getKeyChar() == KeyEvent.VK_ENTER)
-		{
+	public void keyTyped(KeyEvent e) {
+		if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 			computeInput();
 		}
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 	}
 }

@@ -32,6 +32,22 @@ public class ResultAtom extends Atom {
 				v[6] = true;
 				v[7] = true;
 			}
+		case Resources.IONIC3:
+			switch(valenceElectrons) {
+			case 1:
+				if(quadrant == 1) {
+					v[0] = true;
+				} else if(quadrant == 0) {
+					v[5] = true;
+				} else if(quadrant == 2) {
+					v[1] = true;
+					v[2] = true;
+					v[3] = true;
+					v[4] = true;
+					v[6] = true;
+					v[7] = true;
+				}
+			}
 		case Resources.COVALENT:
 			switch(valenceElectrons) {
 			case 1:
@@ -45,15 +61,15 @@ public class ResultAtom extends Atom {
 	public int getX() {
 		return x;
 	}
-	
+
 	public int getY() {
 		return y;
 	}
-	
+
 	public void setX(int x) {
 		this.x = x;
 	}
-	
+
 	public void setY(int y) {
 		this.y = y;
 	}

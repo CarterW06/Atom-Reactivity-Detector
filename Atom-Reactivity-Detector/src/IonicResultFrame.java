@@ -8,12 +8,12 @@ public class IonicResultFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	protected ResultAtom[] atoms = new ResultAtom[2];
-	private int xMax = Toolkit.getDefaultToolkit().getScreenSize().width;
-	private int yMax = Toolkit.getDefaultToolkit().getScreenSize().height - 10;
-	private int xSize;
-	private int ySize;
-	private int frame = 0;
-	private boolean go;
+	protected int xMax = Toolkit.getDefaultToolkit().getScreenSize().width;
+	protected int yMax = Toolkit.getDefaultToolkit().getScreenSize().height - 10;
+	protected int xSize;
+	protected int ySize;
+	protected int frame = 0;
+	protected boolean go;
 	private ActionListener al = new ActionListener() {
 
 		@Override
@@ -23,8 +23,8 @@ public class IonicResultFrame extends JFrame {
 			repaint();
 		}
 	};
-	private Timer t = new Timer(100, al);
-	private int[] currentPosition = new int[2];
+	protected Timer t = new Timer(100, al);
+	protected int[] leftCurrentPosition = new int[2];
 
 	protected IonicResultFrame(Atom[] atoms) {
 		super("Results");
@@ -38,9 +38,9 @@ public class IonicResultFrame extends JFrame {
 		this.atoms[1] = convertAtomToResultAtom(atoms[1], Resources.IONIC, 0);
 		xSize = getWidth();
 		ySize = getHeight();
-		currentPosition = new int[atoms[0].getValenceElectrons()];
-		for (int i = 0; i < currentPosition.length; i++) {
-			currentPosition[i] = xMax / 4 + Resources.electronPos[i][0];
+		leftCurrentPosition = new int[atoms[0].getValenceElectrons()];
+		for (int i = 0; i < leftCurrentPosition.length; i++) {
+			leftCurrentPosition[i] = xMax / 4 + Resources.electronPos[i][0];
 		}
 		this.atoms[0].setX(xMax / 4);
 		this.atoms[0].setY(yMax / 2);
@@ -87,10 +87,10 @@ public class IonicResultFrame extends JFrame {
 					atoms[1].setX(atoms[1].getX() - 4);
 				}
 			if (go) {
-				currentPosition[0] += 3;
+				leftCurrentPosition[0] += 3;
 			}
-			System.out.println(currentPosition[0] + " dfdfdfdfd " + (atoms[1].getX() + Resources.electronPos[4][0]));
-			if (currentPosition[0] > atoms[1].getX() - 125) {
+			System.out.println(leftCurrentPosition[0] + " dfdfdfdfd " + (atoms[1].getX() + Resources.electronPos[4][0]));
+			if (leftCurrentPosition[0] > atoms[1].getX() - 125) {
 				System.out.println("worked");
 				go = false;
 			}
@@ -104,7 +104,7 @@ public class IonicResultFrame extends JFrame {
 			for (int i = 0; i < atoms[0].getValenceElectrons(); i++) {
 				for (int i2 = 0; i2 < atoms[0].v.length; i2++) {
 					if (atoms[0].v[i2]) {
-						g2D.fillOval(currentPosition[0] + Resources.electronPos[i][0],
+						g2D.fillOval(leftCurrentPosition[0] + Resources.electronPos[i][0],
 								atoms[0].getY() + Resources.electronPos[i][1], 5, 5);
 					}
 				}
