@@ -54,7 +54,7 @@ public class IonicResultFrame extends JFrame {
 	protected ResultAtom[] convertAtomsToResultAtom(Atom[] a, int bondType, int[] quadrant) {
 		ResultAtom[] resultAtom = new ResultAtom[a.length];
 		for (int i = 0; i < a.length; i++) {
-			for (int f : quadrant) {
+			for (int i2 = 0; i2 < quadrant.length; i++) {
 				resultAtom[i] = new ResultAtom(a[i].getName(), 0, 0, bondType, i);
 			}
 		}

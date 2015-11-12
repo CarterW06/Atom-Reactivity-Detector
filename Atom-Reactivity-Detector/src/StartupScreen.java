@@ -14,7 +14,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		// TEMP
 		JPanel panel = new JPanel();
 		JLabel info = new JLabel(
-				"Welcome to Atom Reactivity Detector!  Enter the number of atoms that you want to be computed and then press the button.");
+				"Welcome to Atom Reactivity Detector!  Enter the number of atoms that you want to be computed and then press the button.  If there is an ionic bond, the dots represent electrons.  Covalent bonds only work with hydrogen.");
 		panel.add(info);
 		panel.add(input);
 		panel.add(next);
@@ -29,7 +29,6 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 
 	public static void main(String[] args) {
 		new StartupScreen();
-		Resources.generateHashMap();
 
 	}
 
@@ -39,14 +38,14 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 	}
 
 	private int computeInput() {
+		Resources r = new Resources();
+		r.generateCollections();
 		next.removeKeyListener(this);
 		if (input.getText().equals("exit")) {
 			System.exit(0);
 		}
 		System.out.println("i'm here" + input.getText());
 		if (Integer.parseInt(input.getText()) > 5) {
-			JOptionPane.showMessageDialog(this,
-					"If you want to use more than 5 atoms, you will not be trying to compute one atom.  It will automatically generate unit cells for you if you want it to.  Metallic bonds will also automatically be computed.");
 			System.exit(0);
 		}
 		String[] elements = new String[Integer.parseInt(input.getText())];
@@ -99,13 +98,26 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 			}
 			boolean hasH = false;
 			for (Atom a : atoms) {
-				if (a.getName().equalsIgnoreCase("hydrogen")) {
+				if (a.getName().equalsIgnoreCase("hydrogen") && covalent == true) {
 					hasH = true;
 				}
 			}
 			if (covalent && hasH) {
-				JOptionPane.showMessageDialog(this, "covalent");
-				irf = new CovalentResultFrame(cb.getCenterAtom(), atomsNotInCenter);
+				JOptionPane.showMessageDialog(this, "covalent bond");
+				System.exit(0);
+			}
+		}
+		boolean metallic;
+		if(atoms.length == 3) {
+			metallic = true;
+			for(Atom a : atoms) {
+				if(r.metals.contains(a) == true) {
+					System.out.println("not true");
+					metallic = false;
+				}
+			}
+			if(metallic) {
+				JOptionPane.showMessageDialog(this, "metallic bond");
 			}
 		}
 		return isIonicBond(atoms, covalent, sum);
@@ -119,6 +131,10 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 			for (Atom a : atoms) {
 				if (covalent == false) {
 					if (a.getValenceElectrons() == 3 || a.getValenceElectrons() == 4 || a.getValenceElectrons() == 5) {
+						System.exit(0);
+					}
+					if(a.getName().equalsIgnoreCase("hydrogen")) {
+						JOptionPane.showMessageDialog(this, "covalent bond");
 						System.exit(0);
 					}
 				}
@@ -136,24 +152,32 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 			return 538;
 		} else if (sum == 8 && atoms.length == 3) {
 			System.out.println("ionic bond");
+			for (Atom a : atoms) {
+				if (a.getName().equalsIgnoreCase("hydrogen")) {
+					JOptionPane.showMessageDialog(this, "covalent bond");
+					System.exit(0);
+				}
+			}
 			java.util.List<Atom> al = new ArrayList<Atom>();
 			Atom[] otherAtoms = new Atom[2];
 			Atom bigOne = new Atom("ERROR");
-			for(Atom a : atoms) {
-				if(a.getValenceElectrons() == 1) {
+			for (Atom a : atoms) {
+				if (a.getValenceElectrons() == 1) {
 					al.add(a);
-				} else if(a.getValenceElectrons() == 6) {
+				} else if (a.getValenceElectrons() == 6) {
 					bigOne = a;
 				}
 			}
 			int i = 0;
-			while(i < 2) {
-			for(Atom a : al) {
-				otherAtoms[i] = a;
-				i++;
+			while (i < 2) {
+				for (Atom a : al) {
+					otherAtoms[i] = a;
+					i++;
+				}
 			}
+			if (covalent == false) {
+				irf = new IonicWithThree(bigOne, otherAtoms);
 			}
-			irf = new IonicWithThree(bigOne, otherAtoms);
 		}
 		next.addKeyListener(this);
 		return 3;
