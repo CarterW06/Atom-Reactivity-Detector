@@ -83,11 +83,11 @@ public class IonicResultFrame extends JFrame {
 			// ???
 			if (frame < xMax / 10 + xMax / 16)
 				if (frame < xMax / 10 && atoms[0].getX() < xMax / 8 * 7) {
-					atoms[0].setX(atoms[0].getX() + 2);
-					atoms[1].setX(atoms[1].getX() - 2);
+					atoms[0].setX(atoms[0].getX() + 4);
+					atoms[1].setX(atoms[1].getX() - 4);
 				}
 			if (go) {
-				leftCurrentPosition[0] += 2;
+				leftCurrentPosition[0] += 3;
 			}
 			System.out.println(leftCurrentPosition[0] + " dfdfdfdfd " + (atoms[1].getX() + Resources.electronPos[4][0]));
 			if (leftCurrentPosition[0] > atoms[1].getX() - 125) {

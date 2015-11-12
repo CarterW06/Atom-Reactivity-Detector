@@ -20,7 +20,7 @@ public class IonicWithThree extends IonicResultFrame {
 		this.middleOne = convertAtomToResultAtom(middleOne, Resources.IONIC3, 2);
 		setBackground(Color.BLACK);
 		rightCurrentPosition[0] = xMax / 2 + 300;
-		leftCurrentPosition[1] = xMax / 2 - 300;
+		leftCurrentPosition[0] = xMax / 2 - 300;
  	}
 	protected ActionListener al = new ActionListener() {
 
@@ -31,7 +31,7 @@ public class IonicWithThree extends IonicResultFrame {
 			repaint();
 		}
 	};
-	protected Timer t = new Timer(10, al);
+	protected Timer t = new Timer(100, al);
 
 	@Override
 	public void paint(Graphics g) {
@@ -49,17 +49,12 @@ public class IonicWithThree extends IonicResultFrame {
 			}
 		}
 		if (xSize >= xMax && ySize >= yMax) {
-			// ???
-			if (frame < xMax / 10 + xMax / 16)
-				if (frame < xMax / 10 && atoms[0].getX() < xMax / 8 * 7) {
-					atoms[0].setX(atoms[0].getX() + 2);
-					atoms[1].setX(atoms[1].getX() - 2);
-				}
 			if (go) {
 				leftCurrentPosition[0] += 2;
+				rightCurrentPosition[0] -= 2;
 			}
 			System.out.println(leftCurrentPosition[0] + " dfdfdfdfd " + (others[1].getX() + Resources.electronPos[4][0]));
-			if (leftCurrentPosition[0] >  - 125) {
+			if (leftCurrentPosition[0] > xMax / 2 - 50) {
 				System.out.println("worked");
 				go = false;
 			}
@@ -84,12 +79,12 @@ public class IonicWithThree extends IonicResultFrame {
 			for (int i = 0; i < atoms[1].getValenceElectrons(); i++) {
 				for (int i2 = 0; i2 < atoms[1].v.length; i2++) {
 					if (atoms[1].v[i2]) {
-						g2D.fillOval(atoms[1].getX() + Resources.electronPos[i][0],
+						g2D.fillOval(rightCurrentPosition[0] + Resources.electronPos[i][0],
 								atoms[0].getY() + Resources.electronPos[i][1], 5, 5);
 					}
 				}
 			}
-			g2D.setColor(Color.WHITE);
+			g2D.setColor(Color.ORANGE);
 			for (int i = 0; i < middleOne.getValenceElectrons(); i++) {
 				for (int i2 = 0; i2 < 8; i2++) {
 					if (others[1].v[i2]) {

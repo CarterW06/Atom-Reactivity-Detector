@@ -36,7 +36,7 @@ public class Resources {
 			"radon" };
 
 	public static void generateHashMap() {
-		electronPos[0][0] = 90;
+		electronPos[0][0] = 50;
 		electronPos[0][1] = 15;
 		electronPos[1][0] = 90;
 		electronPos[1][1] = 0;
