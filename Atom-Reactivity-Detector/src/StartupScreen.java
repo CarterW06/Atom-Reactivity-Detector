@@ -37,7 +37,7 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 		computeInput();
 	}
 
-	private int computeInput() {
+	private void computeInput() {
 		Resources r = new Resources();
 		r.generateCollections();
 		next.removeKeyListener(this);
@@ -107,6 +107,13 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 				System.exit(0);
 			}
 		}
+		isIonicBond(atoms, covalent, sum);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		boolean metallic;
 		if(atoms.length == 3) {
 			metallic = true;
@@ -120,7 +127,6 @@ public class StartupScreen extends JFrame implements ActionListener, KeyListener
 				JOptionPane.showMessageDialog(this, "metallic bond");
 			}
 		}
-		return isIonicBond(atoms, covalent, sum);
 
 		// Ionic bond logic
 		// Not included yet - reference Atom.java to see how it works

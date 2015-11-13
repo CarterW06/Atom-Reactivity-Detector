@@ -28,6 +28,7 @@ public class IonicResultFrame extends JFrame {
 
 	protected IonicResultFrame(Atom[] atoms) {
 		super("Results");
+		JOptionPane.showMessageDialog(this, "In this bond, " + atoms[0].getName() + "gives" + atoms[0].getValenceElectrons() + " to " + atoms[1].getName() + ".");
 		System.out.println("made it");
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
